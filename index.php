@@ -2,29 +2,50 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <title>Mon super site</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site de recettes - Page d'accueil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
+    <?php include_once('header.php'); ?>
+    <div class="container">
+        <a href="bonjour.php?nom=Dupont&amp;prenom=Jean">Dis-moi bonjour !</a>
+        <h1>Site de recettes</h1>
 
-    <?php include('header.php'); ?>
+        <form action="contact.php" method="GET">
+            <!-- données à faire passer à l'aide d'inputs -->
+            <input name="nom">
+            <input name="prenom">
+        </form>
 
-    <!-- Le corps -->
+        <!-- Inclusion des variables et fonctions -->
+        <?php
+        include_once('variables.php');
+        include_once('functions.php');
+        ?>
 
-    <div id="corps">
-        <h1>Mon super site</h1>
+        <!-- Inclusion du header -->
+        <?php
+        include_once('header.php');
+        ?>
 
-        <p>
-            Bienvenue sur mon super site !<br />
-            Vous allez adorer ici, c'est un site génial qui va parler de... euh... Je cherche encore un peu le thème de mon site. :-D
-        </p>
+        <!-- Je boucle sur mes recettes et mes auteurs -->
+        <?php foreach (getRecipes($recipes) as $recipe) : ?>
+            <article>
+                <h3><?php echo $recipe['title']; ?></h3>
+                <div><?php echo $recipe['recipe']; ?></div>
+                <i><?php echo displayAuthor($recipe['author'], $users); ?></i>
+            </article>
+        <?php endforeach ?>
     </div>
 
-    <!-- Le pied de page -->
-
-   <?php include('pied_de_page.php'); ?>
-
+    <!-- Inclusion du footer -->
+    <?php
+    include_once('footer.php');
+    ?>
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 <?php
 // functions.php
 
-// Fonction qui vérifie si la rectte est validée ou non
+// Fonction qui vérifie si la recette est validée ou non
 function isValidRecipe(array $recipe) : bool
 {
     if (array_key_exists('is_enabled', $recipe)) {
@@ -37,3 +37,4 @@ function getRecipes(array $recipes) : array
 
     return $validRecipes;
 }
+
