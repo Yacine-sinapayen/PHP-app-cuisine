@@ -12,6 +12,32 @@ if (!isset($_POST['email']) || !isset($_POST['message']))
 $email = $_POST['email'];
 $message = $_POST['message'];
 
+/*-------- Testons que le fichier(piece jointe au formulaire) a bien été envoyée et qu'il n'y a pas de msg d'erreur --------*/
+if(isset($_FILES['screenshot']) && $_FILES['screenshot']['error']=== 0){
+    // Je vérifie que la taille du fichié ne dépasse pas 1MO
+    if($_FILES['screenshot']['size'] <= 1000000){
+        // Je vérifie l'extension du fichier pour être sûr que c'est un image et pour ce protéger des script php
+            // je récupère l'extension du fichier dans uen variable
+            // La fonction pathinfo renvoie un tableau (array) contenant entre autres l'extension du fichier dans  $fileInfo['extension']
+        $fileInfo = pathinfo($_FILES['screenshot']['name']);
+        $extension = $fileInfo['extension'];
+        // je stock les extensions que j'autorise dans une variables
+        $alowedExtensions = ['jpg', 'jpeg','gif', 'png'];
+        // Une fois l'extension récupérée, on peut la comparer à un tableau d'extensions autorisées, et vérifier si l'extension récupérée fait bien partie des extensions autorisées à l'aide de la fonction in_array()
+        if (in_array($extension, $alowedExtensions)){
+            //Si tout est bon, on accepte le fichier définitivement en appelant la fonction move_uploaded_file()
+            move_uploaded_file(
+                // ['name'] est le nom du chemin sous lequelle sera stocké le fichié
+                //['tmp_name'] est le nom temporaire du fichié
+            $_FILES['screenshot']['name']['tmp_name'], 'uploads/'
+            // basename() permet d'extraire le nom di fichier "fichier.png exemple" depuis ['name'];
+            .basename($_FILES['screenshot']['name']));
+            echo "l'envoi a bien été effectué !";
+
+        }
+
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
