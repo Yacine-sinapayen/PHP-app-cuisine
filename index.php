@@ -15,7 +15,7 @@
         <a href="bonjour.php?nom=Dupont&amp;prenom=Jean">Dis-moi bonjour !</a>
         <h1>Site de recettes</h1>
 
-        <form action="contact.php" method="GET">
+        <form action="formContact.php" method="GET">
             <!-- données à faire passer à l'aide d'inputs -->
             <input name="nom">
             <input name="prenom">
